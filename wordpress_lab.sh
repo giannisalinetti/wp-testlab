@@ -13,20 +13,23 @@ db_root_pw=password
 
 ### Image build ###
 
+# Build base image only if non existent
 if ! (docker images | grep ${wp_img_base}); then
-    cd base && docker build -t ${wp_img_base} .
+    pushd base && docker build -t ${wp_img_base} .
     if [ $? -ne 0 ]; then
         echo "Error building ${wp_img_base} image"
         exit 1
     fi
-    cd ..
+    popd
 fi 
 
-cd test && docker build -t ${wp_img_test} .
+# We want to always build the test image
+pushd test && docker build -t ${wp_img_test} .
 if [ $? -ne 0 ]; then
     echo "Error building ${wp_img_test} image"
     exit 1
 fi
+popd
 
 ### Deploy updated application ###
 
