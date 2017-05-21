@@ -1,3 +1,3 @@
-FROM wptest:latest
+FROM wpbase:latest
 
 
