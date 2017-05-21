@@ -4,11 +4,19 @@
 # Author: Gianni Salinetti
 # Version: 0.1
 
-img_wp_name=wptest
-img_db_name=mysql
+img_wp_test=wptest
 cnt_wp_name=wplab
 cnt_db_name=wpmysql
 db_root_pw=scisciola
+
+# Image build
+cd test && docker build -t ${img_wp_test} .
+if [ $? -ne 0 ]; then
+    echo "Error building ${img_wp_test} image"
+    exit 1
+fi
+
+# Deploy updated application
 
 # Stop wp container
 if (docker ps | grep ${cnt_wp_name} > /dev/null); then
