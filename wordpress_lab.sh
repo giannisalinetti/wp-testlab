@@ -8,7 +8,7 @@ wp_img_test=wptest
 db_img_name=mysql
 wp_cnt_name=wplab
 db_cnt_name=wpmysql
-db_root_pw=scisciola
+db_root_pw=password
 
 ### Image build ###
 cd test && docker build -t ${wp_img_test} .
