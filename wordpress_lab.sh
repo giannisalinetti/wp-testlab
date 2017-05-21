@@ -33,7 +33,7 @@ popd
 
 ### Deploy updated application ###
 
-# Stop wp container
+# Stop previously existing wp container
 if (docker ps | grep ${wp_cnt_name} > /dev/null); then
   echo "Stopping and removing container ${wp_cnt_name}..."
   docker stop ${wp_cnt_name} > /dev/null && docker rm ${wp_cnt_name} > /dev/null
@@ -42,7 +42,7 @@ elif (docker ps -a | grep ${wp_cnt_name} > /dev/null); then
   docker rm ${wp_cnt_name} > /dev/null
 fi
 
-# Stop db container
+# Stop previously existing db container
 if (docker ps | grep ${db_cnt_name} > /dev/null); then
   echo "Stopping and removing container ${db_cnt_name}..."
   docker stop ${db_cnt_name} > /dev/null && docker rm ${db_cnt_name} > /dev/null
