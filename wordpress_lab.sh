@@ -2,7 +2,7 @@
 
 # Setup script for Wordpress theme lab
 # Author: Gianni Salinetti
-# Version: 0.1
+# Version: 0.2
 
 wp_img_base=wpbase
 wp_img_test=wptest
