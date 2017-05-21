@@ -42,5 +42,8 @@ RUN set -ex; \
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
+# Custom theme builder
+ONBUILD COPY ./src/themes/ /var/www/html/wp-content/themes/
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
