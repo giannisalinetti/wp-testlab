@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Setup script for Wordpress theme lab
+# Author: Gianni Salinetti
+# Version: 0.1
+
 img_wp_name=wptest
 img_db_name=mysql
 cnt_wp_name=wplab
