@@ -1,0 +1,3 @@
+FROM wptest:latest
+
+
