@@ -44,7 +44,8 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 # Custom theme builder
 ONBUILD COPY ./src/themes/ /var/www/html/wp-content/themes/
-ONBUILD RUN chown -R www-data:www-data /var/www/html/wp-content/themes/
+ONBUILD COPY ./src/plugins/ /var/www/html/wp-content/plugins/
+ONBUILD RUN chown -R www-data:www-data /var/www/html/wp-content/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
