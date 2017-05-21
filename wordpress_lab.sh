@@ -4,41 +4,42 @@
 # Author: Gianni Salinetti
 # Version: 0.1
 
-img_wp_test=wptest
-cnt_wp_name=wplab
-cnt_db_name=wpmysql
+wp_img_test=wptest
+db_img_name=mysql
+wp_cnt_name=wplab
+db_cnt_name=wpmysql
 db_root_pw=scisciola
 
-# Image build
-cd test && docker build -t ${img_wp_test} .
+### Image build ###
+cd test && docker build -t ${wp_img_test} .
 if [ $? -ne 0 ]; then
-    echo "Error building ${img_wp_test} image"
+    echo "Error building ${wp_img_test} image"
     exit 1
 fi
 
-# Deploy updated application
+### Deploy updated application ###
 
 # Stop wp container
-if (docker ps | grep ${cnt_wp_name} > /dev/null); then
-  echo "Stopping and removing container ${cnt_wp_name}..."
-  docker stop ${cnt_wp_name} > /dev/null && docker rm ${cnt_wp_name} > /dev/null
-elif (docker ps -a | grep ${cnt_wp_name} > /dev/null); then
-  echo "Removing stopped container ${cnt_wp_name}..."
-  docker rm ${cnt_wp_name} > /dev/null
+if (docker ps | grep ${wp_cnt_name} > /dev/null); then
+  echo "Stopping and removing container ${wp_cnt_name}..."
+  docker stop ${wp_cnt_name} > /dev/null && docker rm ${wp_cnt_name} > /dev/null
+elif (docker ps -a | grep ${wp_cnt_name} > /dev/null); then
+  echo "Removing stopped container ${wp_cnt_name}..."
+  docker rm ${wp_cnt_name} > /dev/null
 fi
 
 # Stop db container
-if (docker ps | grep ${cnt_db_name} > /dev/null); then
-  echo "Stopping and removing container ${cnt_db_name}..."
-  docker stop ${cnt_db_name} > /dev/null && docker rm ${cnt_db_name} > /dev/null
-elif (docker ps -a | grep ${cnt_db_name} > /dev/null); then
-  echo "Removing stopped container ${cnt_db_name}..."
-  docker rm ${cnt_db_name} > /dev/null
+if (docker ps | grep ${db_cnt_name} > /dev/null); then
+  echo "Stopping and removing container ${db_cnt_name}..."
+  docker stop ${db_cnt_name} > /dev/null && docker rm ${db_cnt_name} > /dev/null
+elif (docker ps -a | grep ${db_cnt_name} > /dev/null); then
+  echo "Removing stopped container ${db_cnt_name}..."
+  docker rm ${db_cnt_name} > /dev/null
 fi
 
 # Run mysql container
-docker run --name ${cnt_db_name} -e MYSQL_ROOT_PASSWORD=${db_root_pw} -d ${img_db_name}:latest
+docker run --name ${db_cnt_name} -e MYSQL_ROOT_PASSWORD=${db_root_pw} -d ${db_img_name}:latest
 # Run a new wp instance
-docker run --name ${cnt_wp_name} --link ${cnt_db_name}:mysql -p 8080:80 -d ${img_wp_name}:latest
+docker run --name ${wp_cnt_name} --link ${db_cnt_name}:mysql -p 8080:80 -d ${wp_img_test}:latest
 
 
