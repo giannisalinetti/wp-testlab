@@ -4,6 +4,7 @@
 # Author: Gianni Salinetti
 # Version: 0.1
 
+wp_img_base=wpbase
 wp_img_test=wptest
 db_img_name=mysql
 wp_cnt_name=wplab
@@ -11,6 +12,16 @@ db_cnt_name=wpmysql
 db_root_pw=password
 
 ### Image build ###
+
+if ! (docker images | grep ${wp_img_base}); then
+    cd base && docker build -t ${wp_img_base} .
+    if [ $? -ne 0 ]; then
+        echo "Error building ${wp_img_base} image"
+        exit 1
+    fi
+    cd ..
+fi 
+
 cd test && docker build -t ${wp_img_test} .
 if [ $? -ne 0 ]; then
     echo "Error building ${wp_img_test} image"
